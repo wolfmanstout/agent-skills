@@ -4,6 +4,32 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR"
 
+# Parse flags
+UPDATE=false
+for arg in "$@"; do
+  case "$arg" in
+    --update)
+      UPDATE=true
+      ;;
+    *)
+      echo "Unknown option: $arg"
+      echo "Usage: $0 [--update]"
+      exit 1
+      ;;
+  esac
+done
+
+# Update subtrees if requested
+if [ "$UPDATE" = true ]; then
+  echo "Updating talon-wiki subtree..."
+  git subtree pull --prefix=subtrees/talon-wiki https://github.com/TalonCommunity/Wiki.git main --squash
+
+  echo "Updating skills subtree..."
+  git subtree pull --prefix=subtrees/skills https://github.com/anthropics/skills.git main --squash
+
+  echo "Subtrees updated."
+fi
+
 # Clean and recreate output directory
 rm -rf skills
 mkdir -p skills
