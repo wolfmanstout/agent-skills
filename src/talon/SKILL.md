@@ -10,7 +10,7 @@ description: Use when working on Talon voice command projects (.talon files, .ta
 For detailed syntax documentation, see bundled references:
 - `references/talon-files.md` — .talon file syntax, context headers, commands, actions, captures, settings, tags
 - `references/talon-lists.md` — .talon-list file format, overrides, named vs simple lists
-- `references/misc-tips.md` — Additional tips and patterns
+- `references/misc-tips.md` — REPL and logging usage, introspection functions (sim, mimic, actions.find/list, events.tail, registry inspection), and the Talon Python API (ui, clip, cron, screen, imgui, canvas, noise, fs modules)
 
 ## Testing with the REPL
 
