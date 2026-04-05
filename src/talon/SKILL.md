@@ -1,6 +1,6 @@
 ---
 name: talon
-description: Use when working on Talon voice command projects (.talon files, .talon-list files, or Talon Python modules). Provides Talon file syntax, voice command rules, context matching, list definitions, Python API tips, and local testing guidance.
+description: Use when working on Talon voice command projects — writing .talon files, .talon-list files, or Talon Python modules, AND when installing or deploying Talon scripts to the user's Talon directory. Provides file syntax, voice command rules, context matching, list definitions, Python API tips, local testing, and sandbox testing via talonbox.
 ---
 
 # Talon Voice Command Development
@@ -12,12 +12,20 @@ For detailed syntax documentation, see bundled references:
 - `references/talon-lists.md` — .talon-list file format, overrides, named vs simple lists
 - `references/misc-tips.md` — REPL and logging usage, introspection functions (sim, mimic, actions.find/list, events.tail, registry inspection), and the Talon Python API (ui, clip, cron, screen, imgui, canvas, noise, fs modules)
 
-## Testing with the REPL
+## Testing
 
-Use the REPL for testing command parsing with `sim()` or introspecting Talon APIs. Do NOT use it for testing behavioral changes that depend on specific application context — the user will test those manually.
+### Host REPL (read-only queries)
+
+Use the host REPL for read-only queries to understand how Talon APIs work — introspecting registries, testing command parsing with `sim()`, listing actions, etc. Do NOT use it for testing behavioral changes that depend on specific application context.
 
 - **Mac:** `~/.talon/bin/repl`
 - **WSL:** `talon-repl`
+
+### talonbox (sandbox testing)
+
+Use `talonbox` for tests that interact with the OS or with the user's Talon scripts — running `mimic()`, verifying side effects, capturing screenshots, or deploying scripts to a clean environment. It drives a macOS VM with a full Talon installation.
+
+Run `talonbox --help` and `talonbox <command> --help` for usage details.
 
 ## Local Development
 
