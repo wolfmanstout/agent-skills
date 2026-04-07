@@ -16,10 +16,11 @@ For detailed syntax documentation, see bundled references:
 
 ### Host REPL (read-only queries)
 
-Use the host REPL for read-only queries to understand how Talon APIs work — introspecting registries, testing command parsing with `sim()`, listing actions, etc. Do NOT use it for testing behavioral changes that depend on specific application context.
+Use the host REPL only by piping one-shot commands into it for read-only queries — introspecting registries, testing command parsing with `sim()`, listing actions, etc. Do not open or rely on an interactive REPL session. Do NOT use the host REPL for testing behavioral changes that depend on specific application context.
 
 - **Mac:** `~/.talon/bin/repl`
 - **WSL:** `talon-repl`
+- **Pattern:** `printf 'actions.list(\"user\")\n' | ~/.talon/bin/repl`
 
 ### talonbox (sandbox testing)
 
