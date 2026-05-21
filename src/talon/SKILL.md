@@ -20,7 +20,26 @@ Use the host REPL only by piping one-shot commands into it for read-only queries
 
 - **Mac:** `~/.talon/bin/repl`
 - **WSL:** `talon-repl`
-- **Pattern:** `printf 'actions.list(\"user\")\n' | ~/.talon/bin/repl`
+- **Simple query:** `printf 'actions.list(\"user\")\n' | ~/.talon/bin/repl`
+- **Import plus query:** `printf 'from talon import ui; print(ui.active_app())\n' | ~/.talon/bin/repl`
+
+The raw REPL treats piped stdin as one Talon REPL input block, not as interactive lines entered one at a time. Do not pipe multiple top-level Python statements directly into it. Keep small queries to one statement; semicolon-separated simple statements work for imports plus a read-only query.
+
+For a multiline host snippet, use a quoted heredoc and keep the code in one compound statement. An `if True:` block is a readable wrapper for read-only debugging snippets:
+
+```sh
+~/.talon/bin/repl <<'PY'
+if True:
+    from talon import ui
+    print("active app", ui.active_app())
+    try:
+        print("focused", ui.focused_element())
+    except Exception as error:
+        print("focused ERROR", type(error).__name__, repr(error))
+PY
+```
+
+On macOS the host REPL connects to `~/.talon/.sys/repl.sock`. If a sandboxed command reports `PermissionError: [Errno 1] Operation not permitted` or says it could not open the REPL, rerun that REPL command outside the sandbox before assuming Talon is stopped.
 
 ### talonbox (sandbox testing)
 
