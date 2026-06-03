@@ -1,6 +1,6 @@
 ---
 name: push-to-main
-description: Use when the user asks to push changes to main or master from an alternate git worktree. Commit the current worktree first, push its current branch if one exists, then fast-forward only in the repository's main worktree and push main/master. Do not create pull requests.
+description: Use when the user asks to push changes to main or master from an alternate git worktree. Commit the current worktree first, push its current branch only if it already has an upstream, then fast-forward only in the repository's main worktree and push main/master. Do not create pull requests.
 ---
 
 # Push to Main
@@ -26,6 +26,7 @@ Identify:
 
 - The original worktree path, so command execution can return there at the end.
 - The current branch, if any.
+- The current branch's upstream, if one is configured.
 - The current HEAD commit, especially if the worktree is detached.
 - The primary branch: prefer `main`; otherwise use `master`.
 - The main worktree: the worktree whose branch is `refs/heads/main` or `refs/heads/master`.
@@ -38,13 +39,19 @@ If the current worktree has changes, review the diff, stage only changes that be
 
 After the current worktree is committed or already clean, record the merge target: use the current branch name when one exists; otherwise use the current HEAD commit SHA.
 
-If the current branch exists, push it before touching the main worktree:
+If the current branch exists, check whether it already has an upstream:
 
 ```sh
-git push -u origin HEAD
+git rev-parse --abbrev-ref --symbolic-full-name @{u}
 ```
 
-If there are no local changes but the branch has unpushed commits, push the branch. If the current worktree is detached, skip this branch-push step. If pushing the current branch is rejected because the remote branch has commits this worktree does not have, stop and report the issue; do not force-push unless the user explicitly asks.
+If the branch has an upstream, push it before touching the main worktree:
+
+```sh
+git push
+```
+
+If there are no local changes but the branch has unpushed commits and an upstream exists, push the branch. If the current worktree is detached or the current branch has no upstream, skip this branch-push step. Do not create an upstream just to push the current branch. If pushing the current branch is rejected because the remote branch has commits this worktree does not have, stop and report the issue; do not force-push unless the user explicitly asks.
 
 ### 3. Fast-forward the main worktree
 
