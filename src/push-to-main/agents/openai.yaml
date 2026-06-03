@@ -1,0 +1,4 @@
+interface:
+  display_name: "Push to Main"
+  short_description: "Fast-forward worktree HEAD to main"
+  default_prompt: "Use $push-to-main to commit this worktree, fast-forward main to its HEAD, and push it."

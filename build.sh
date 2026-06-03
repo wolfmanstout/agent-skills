@@ -34,8 +34,12 @@ fi
 rm -rf skills
 mkdir -p skills
 
-# Copy talon skill from src
-cp -r src/talon skills/talon
+# Copy local skill sources
+for skill_src in src/*; do
+  [ -d "$skill_src" ] || continue
+  skill_name="$(basename "$skill_src")"
+  cp -r "$skill_src" "skills/$skill_name"
+done
 
 # Copy wiki reference docs into talon skill
 mkdir -p skills/talon/references
