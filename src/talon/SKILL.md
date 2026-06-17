@@ -52,11 +52,13 @@ Default to a disposable, named clone for each test or experiment instead of reus
 ```sh
 talonbox clone golden test-clipboard-formatting
 talonbox start test-clipboard-formatting
-talonbox rsync -av ./ test-clipboard-formatting:/Users/lume/.talon/user/example/
+talonbox rsync -a ./ test-clipboard-formatting:/Users/lume/.talon/user/example/
 talonbox mimic test-clipboard-formatting 'some voice command'
 talonbox screenshot test-clipboard-formatting /tmp/test-clipboard-formatting.png
 talonbox stop test-clipboard-formatting
 ```
+
+Prefer bounded, token-efficient command output in diagnostics and examples.
 
 Use names that describe the task well enough to recognize later, such as `test-cursorless-snippets`, `debug-dictation-timeout`, or `experiment-list-overrides`. If the task needs multiple independent attempts, create separate clones with distinct names.
 
