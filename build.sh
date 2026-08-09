@@ -31,24 +31,24 @@ if [ "$UPDATE" = true ]; then
 fi
 
 # Clean and recreate output directory
-rm -rf skills
-mkdir -p skills
+rm -rf generated-skills
+mkdir -p generated-skills
 
 # Copy local skill sources
 for skill_src in src/*; do
   [ -d "$skill_src" ] || continue
   skill_name="$(basename "$skill_src")"
-  cp -r "$skill_src" "skills/$skill_name"
+  cp -r "$skill_src" "generated-skills/$skill_name"
 done
 
 # Copy wiki reference docs into talon skill
-mkdir -p skills/talon/references
-cp subtrees/talon-wiki/docs/Customization/talon-files.md skills/talon/references/talon-files.md
-cp subtrees/talon-wiki/docs/Customization/talon_lists.md skills/talon/references/talon-lists.md
-cp subtrees/talon-wiki/docs/Customization/misc-tips.md skills/talon/references/misc-tips.md
+mkdir -p generated-skills/talon/references
+cp subtrees/talon-wiki/docs/Customization/talon-files.md generated-skills/talon/references/talon-files.md
+cp subtrees/talon-wiki/docs/Customization/talon_lists.md generated-skills/talon/references/talon-lists.md
+cp subtrees/talon-wiki/docs/Customization/misc-tips.md generated-skills/talon/references/misc-tips.md
 
 # Copy skill-creator skill
-cp -r subtrees/skills/skills/skill-creator skills/skill-creator
+cp -r subtrees/skills/skills/skill-creator generated-skills/skill-creator
 
-echo "Build complete. Skills output to skills/"
-ls -la skills/
+echo "Build complete. Skills output to generated-skills/"
+ls -la generated-skills/

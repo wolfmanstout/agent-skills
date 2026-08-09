@@ -47,7 +47,7 @@ Use `talonbox` for tests that interact with the OS or with the user's Talon scri
 
 Run `talonbox --help` and `talonbox <command> --help` for usage details.
 
-Default to a disposable, named clone for each test or experiment instead of reusing an existing VM. Clone `golden` to a readable, task-specific VM name, start that VM, run the experiment, then stop it when the task is complete:
+Default to a disposable, named clone for each test or experiment instead of reusing an existing VM. Clone `golden`, which runs Talon Beta, to a readable, task-specific VM name. Use `golden-public` instead only when the user requests testing against the public Talon release. Start the clone, run the experiment, then stop it when the task is complete:
 
 ```sh
 talonbox clone golden test-clipboard-formatting
@@ -58,12 +58,14 @@ talonbox screenshot test-clipboard-formatting /tmp/test-clipboard-formatting.png
 talonbox stop test-clipboard-formatting
 ```
 
+Some Talon packages depend on `~/projects/wolfmanstout_talon`, the user's fork of `talonhub/community`, but Talon packages have no standard way to declare dependencies. Check the package README for this requirement. If the README is silent but the Talon log reports missing actions, captures, or settings, try syncing the fork into the VM alongside the package and rerun the test.
+
 Prefer bounded, token-efficient command output in diagnostics and examples.
 
 Use names that describe the task well enough to recognize later, such as `test-cursorless-snippets`, `debug-dictation-timeout`, or `experiment-list-overrides`. If the task needs multiple independent attempts, create separate clones with distinct names.
 
 Lifecycle rules:
-- Prefer `talonbox clone golden <task-name>` before starting a sandbox. `clone` requires `golden` to be stopped and the destination name to be unused.
+- Prefer `talonbox clone golden <task-name>` before starting a sandbox. Use `golden-public` as the source only for requested public-release testing. `clone` requires the source VM to be stopped and the destination name to be unused.
 - Use `talonbox start <task-name>` only after choosing the clone to work in. `start` never clones, deletes, or resets the VM.
 - Always run `talonbox stop <task-name>` once the test or experiment is complete, even if the result is inconclusive. It is safe to run repeatedly.
 - Do not delete the VM immediately after testing. Keep the stopped VM available for inspection until the user has approved the changes and the work has been committed.

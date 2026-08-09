@@ -1,5 +1,5 @@
 # Build output
-skills/
+generated-skills/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
