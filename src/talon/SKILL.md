@@ -71,6 +71,7 @@ Lifecycle rules:
 - Do not delete the VM immediately after testing. Keep the stopped VM available for inspection until the user has approved the changes and the work has been committed.
 - Only after user approval and a successful commit, clean up with `talonbox delete <task-name>`. `delete` requires the VM to be stopped first.
 - Use `talonbox list` or `talonbox status <task-name>` when checking what sandboxes already exist or whether one is still running.
+- For bulk cleanup of stale sandboxes, use the `talonbox-cleanup` skill.
 
 ## Local Development
 

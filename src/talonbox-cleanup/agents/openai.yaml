@@ -1,0 +1,4 @@
+interface:
+  display_name: "Talonbox Cleanup"
+  short_description: "Stop and delete stale talonbox VMs"
+  default_prompt: "Use $talonbox-cleanup to stop and delete stale talonbox VMs, keeping golden and macOS base VMs."
